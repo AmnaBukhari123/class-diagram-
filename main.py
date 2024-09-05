@@ -1,118 +1,11 @@
-class Person:
-    def __init__(self, Name, Phone_Number, CNIC, Address):
-        self.Name = Name
-        self.Phone_Number = Phone_Number
-        self.CNIC = CNIC
-        self.Address = Address
-        
-
-    def __str__(self) -> str:
-        return f"Name: {self.Name}, Phone: {self.Phone_Number}, CNIC: {self.CNIC}, Address: {self.Address}"
-    
-
-class Vehicle:
-    def __init__(self, Vehicle_no_plate, car_model):
-        self.Vehicle_no_plate = Vehicle_no_plate
-        self.car_model = car_model
-
-
-    def __str__(self) -> str:
-        return f"Vehicle No Plate: {self.Vehicle_no_plate}, Car Model: {self.car_model}"
-
-
-
-class Customer(Person):
-    def __init__(self, Name, Phone_Number, CNIC, Address, Customer_Id, subscription_Id, Vehicle_no_plate):
-        super().__init__(Name, Phone_Number, CNIC, Address)
-        self.Customer_Id = Customer_Id
-        self.subscription_Id = subscription_Id
-        self.Vehicle_no_plate = Vehicle_no_plate
-        self.Vehicle = Vehicle(Vehicle_no_plate, car_model=None)
-
-
-    def update_subscription(self, new_subscription_Id):
-       self.subscription_Id = new_subscription_Id
-
-
-    def get_subscription_status(self):
-        return f"Customer {self.Customer_Id} has subscription ID: {self.subscription_Id}"
-
-    def __str__(self) -> str:
-        return f"{super().__str__()}, Customer ID: {self.Customer_Id}, Subscription ID: {self.subscription_Id}, Vehicle No Plate: {self.Vehicle_no_plate}"
-
-
-
-class Worker(Person):
-    def __init__(self, Name, Phone_Number, CNIC, Address, Worker_Id):
-        super().__init__(Name, Phone_Number, CNIC, Address)
-        self.Worker_Id = Worker_Id
-        self.task = None 
-
-    def assign_task(self, task):
-        self.task = task
-
-    def get_assigned_task(self):
-        if self.task:
-            return f"Worker {self.Worker_Id} is assigned to: {self.task}"
-        else:
-            return f"Worker {self.Worker_Id} has no assigned tasks."
-
-    def __str__(self) -> str:
-        return f"{super().__str__()}, Worker ID: {self.Worker_Id}"
-
-
-
-class Register_entries:
-    def __init__(self, car_entry_time, car_leaving_time, customer):
-        self.car_entry_time = car_entry_time
-        self.car_leaving_time = car_leaving_time
-        self.customer = customer
-
-    def __str__(self):
-        return (
-            f"Customer ID: {self.customer.Customer_Id}, "
-            f"Vehicle No Plate: {self.customer.Vehicle.Vehicle_no_plate}, "
-            f"Entry Time: {self.car_entry_time}, "
-            f"Leaving Time: {self.car_leaving_time}"
-        )
-    
-    
-class Car_Wash:
-    def __init__(self, car_wash_type):
-        self.car_wash_type = car_wash_type
-
-    def Wash_Car(self):
-        return "Washing car"
-
-
-class Tier_1(Car_Wash):
-    def Wash_Car(self):
-        return f"Soap only car wash performed!"
-
-
-class Tier_2(Car_Wash):
-    def Wash_Car(self):
-        return f"Soap and polish car wash performed!"
-
-
-class Tier_3(Car_Wash):
-    def __init__(self, car_wash_type, worker):
-        super().__init__(car_wash_type)
-        self.worker = worker
-
-    def Wash_Car(self):
-        return f"Soap + polish + inner clean car wash performed by {self.worker.Name}"
-
-
-class CarWash_Record:
-    def __init__(self, worker, vehicle):
-        self.worker = worker
-        self.vehicle = vehicle
-
-    def __str__(self):
-        return f"Car Wash Record - Vehicle No : {self.vehicle.Vehicle_no_plate} washed by worker {self.worker.Worker_Id}"
-
-
+from Customer import Customer
+from Worker import Worker
+from Register_entries import Register_entries
+from Tier_1 import Tier_1
+from Tier_2 import Tier_2
+from Tier_3 import Tier_3 
+from CarWash_Record import CarWash_Record
+  
 def main():
    
     workers = [
@@ -169,46 +62,74 @@ def main():
         choice = input("Enter your choice: ")
 
         if choice == '1':
+
             for worker in workers:
                 print(worker)
+                
         elif choice == '2':
+
             for customer in customers:
                 print(customer)
+
         elif choice == '3':
+
             for customer in customers:
                 print(customer.Vehicle)
+                
         elif choice == '4':
+
             for entry in register_entries:
                 print(entry)
+
         elif choice == '5':
+
             print(tier1_wash.Wash_Car())
+
         elif choice == '6':
+
             print(tier2_wash.Wash_Car())
+
         elif choice == '7':
+
             for wash in tier3_washes:
                 print(wash.Wash_Car())
+
         elif choice == '8':
+
             for record in car_wash_records:
                 print(record)
+
         elif choice == '9':
+
             for worker in workers:
                 print(worker.get_assigned_task())
+
         elif choice == '10':
+
             for customer in customers:
                 print(customer.get_subscription_status())
+
         elif choice == '11':
+            
             customer_id = input("Enter customer ID to update subscription: ")
             new_subscription_Id = input("Enter new subscription ID: ")
+
             for customer in customers:
+
                 if customer.Customer_Id == customer_id:
+
                     customer.update_subscription(new_subscription_Id)
                     print(f"Subscription for customer {customer_id} updated to {new_subscription_Id}")
                     break
+
             else:
                 print("Customer ID not found.")
+
         elif choice == '12':
+
             print("Exiting...")
             break
+
         else:
             print("Invalid choice. Please try again.")
 
