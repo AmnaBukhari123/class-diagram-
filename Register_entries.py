@@ -1,4 +1,4 @@
-class Register_entries:
+class RegisterEentries:
     def __init__(self, car_entry_time, car_leaving_time, customer):
         self.car_entry_time = car_entry_time
         self.car_leaving_time = car_leaving_time

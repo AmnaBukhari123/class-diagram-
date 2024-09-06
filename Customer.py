@@ -1,5 +1,5 @@
-from Person import Person 
-from Vehicle import Vehicle
+from person import Person 
+from vehicle import Vehicle
 
 class Customer(Person):
     def __init__(self, Name, Phone_Number, CNIC, Address, Customer_Id, subscription_Id, Vehicle_no_plate):

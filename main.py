@@ -1,10 +1,10 @@
-from Customer import Customer
-from Worker import Worker
-from Register_entries import Register_entries
-from Tier_1 import Tier_1
-from Tier_2 import Tier_2
-from Tier_3 import Tier_3 
-from CarWash_Record import CarWash_Record
+from customer import Customer
+from worker import Worker
+from register_entries import RegisterEentries
+from tier1 import Tier1
+from tier2 import Tier2
+from tier3 import Tier3 
+from car_wash_record import CarWashRecord
   
 def main():
    
@@ -30,15 +30,15 @@ def main():
         customer.Vehicle.car_model = "Car Model for " + customer.Customer_Id
 
     
-    register_entries = [Register_entries(car_entry_time="10:00 AM", car_leaving_time="11:00 AM", customer=cust) for cust in customers]
+    register_entries = [RegisterEentries(car_entry_time="10:00 AM", car_leaving_time="11:00 AM", customer=cust) for cust in customers]
 
    
-    car_wash_records = [CarWash_Record(worker=workers[i % len(workers)], vehicle=customers[i % len(customers)].Vehicle) for i in range(len(customers))]
+    car_wash_records = [CarWashRecord(worker=workers[i % len(workers)], vehicle=customers[i % len(customers)].Vehicle) for i in range(len(customers))]
 
     
-    tier1_wash = Tier_1(car_wash_type="Tier 1")
-    tier2_wash = Tier_2(car_wash_type="Tier 2")
-    tier3_washes = [Tier_3(car_wash_type="Tier 3", worker=workers[i % len(workers)]) for i in range(len(customers))]
+    tier1_wash = Tier1(car_wash_type="Tier 1")
+    tier2_wash = Tier2(car_wash_type="Tier 2")
+    tier3_washes = [Tier3(car_wash_type="Tier 3", worker=workers[i % len(workers)]) for i in range(len(customers))]
 
     
     for worker in workers:
@@ -83,16 +83,16 @@ def main():
 
         elif choice == '5':
 
-            print(tier1_wash.Wash_Car())
+            print(tier1_wash.wash_car())
 
         elif choice == '6':
 
-            print(tier2_wash.Wash_Car())
+            print(tier2_wash.wash_car())
 
         elif choice == '7':
 
             for wash in tier3_washes:
-                print(wash.Wash_Car())
+                print(wash.wash_car())
 
         elif choice == '8':
 

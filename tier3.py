@@ -1,10 +1,10 @@
-from Car_Wash import Car_Wash
+from car_wash import CarWash
 
-class Tier_3(Car_Wash):
+class Tier3(CarWash):
     def __init__(self, car_wash_type, worker):
         super().__init__(car_wash_type)
         self.worker = worker
 
-    def Wash_Car(self):
+    def wash_car(self):
         return f"Soap + polish + inner clean car wash performed by {self.worker.Name}"
 

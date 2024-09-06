@@ -1,4 +1,4 @@
-from Person import Person
+from person import Person
 
 class Worker(Person):
     def __init__(self, Name, Phone_Number, CNIC, Address, Worker_Id):

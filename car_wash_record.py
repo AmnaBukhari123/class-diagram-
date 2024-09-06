@@ -1,4 +1,4 @@
-class CarWash_Record:
+class CarWashRecord:
     def __init__(self, worker, vehicle):
         self.worker = worker
         self.vehicle = vehicle
