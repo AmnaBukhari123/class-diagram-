@@ -6,5 +6,5 @@ class Tier3(CarWash):
         self.worker = worker
 
     def wash_car(self):
-        return f"Soap + polish + inner clean car wash performed by {self.worker.Name}"
+        return f"Soap + polish + inner clean car wash performed by {self.worker.name}"
 

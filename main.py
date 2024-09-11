@@ -1,6 +1,6 @@
 from customer import Customer
 from worker import Worker
-from register_entries import RegisterEentries
+from register_entries import RegisterEntries
 from tier1 import Tier1
 from tier2 import Tier2
 from tier3 import Tier3 
@@ -9,40 +9,37 @@ from car_wash_record import CarWashRecord
 def main():
    
     workers = [
-        Worker(Name="Sara Jones", Phone_Number="123-456-7890", CNIC="12345-6789012-3", Address="123 Main St", Worker_Id="W001"),
-        Worker(Name="John Smith", Phone_Number="234-567-8901", CNIC="23456-7890123-4", Address="234 Oak St", Worker_Id="W002"),
-        Worker(Name="Emily Davis", Phone_Number="345-678-9012", CNIC="34567-8901234-5", Address="345 Pine St", Worker_Id="W003"),
-        Worker(Name="Michael Brown", Phone_Number="456-789-0123", CNIC="45678-9012345-6", Address="456 Maple St", Worker_Id="W004"),
-        Worker(Name="Linda Johnson", Phone_Number="567-890-1234", CNIC="56789-0123456-7", Address="567 Elm St", Worker_Id="W005")
+        Worker(name="Sara Jones", phone_number="123-456-7890", cnic="12345-6789012-3", address="123 Main St", worker_id="W001"),
+        Worker(name="John Smith", phone_number="234-567-8901", cnic="23456-7890123-4", address="234 Oak St", worker_id="W002"),
+        Worker(name="Emily Davis", phone_number="345-678-9012", cnic="34567-8901234-5", address="345 Pine St", worker_id="W003"),
+        Worker(name="Michael Brown", phone_number="456-789-0123", cnic="45678-9012345-6", address="456 Maple St", worker_id="W004"),
+        Worker(name="Linda Johnson", phone_number="567-890-1234", cnic="56789-0123456-7", address="567 Elm St", worker_id="W005")
     ]
 
     
     customers = [
-        Customer(Name="Tom Williams", Phone_Number="987-654-3210", CNIC="98765-4321098-7", Address="456 Third St", Customer_Id="C001", subscription_Id="S001", Vehicle_no_plate="ABC-123"),
-        Customer(Name="Anna Lee", Phone_Number="876-543-2109", CNIC="87654-3210987-6", Address="567 Fourth St", Customer_Id="C002", subscription_Id="S002", Vehicle_no_plate="DEF-456"),
-        Customer(Name="James Wilson", Phone_Number="765-432-1098", CNIC="76543-2109876-5", Address="678 Fifth St", Customer_Id="C003", subscription_Id="S003", Vehicle_no_plate="GHI-789"),
-        Customer(Name="Sophia Martinez", Phone_Number="654-321-0987", CNIC="65432-1098765-4", Address="789 Sixth St", Customer_Id="C004", subscription_Id="S004", Vehicle_no_plate="JKL-012"),
-        Customer(Name="Daniel Brown", Phone_Number="543-210-9876", CNIC="54321-0987654-3", Address="890 Seventh St", Customer_Id="C005", subscription_Id="S005", Vehicle_no_plate="MNO-345")
+        Customer(name="Tom Williams", phone_number="987-654-3210", cnic="98765-4321098-7", address="456 Third St", customer_id="C001", subscription_id="S001", vehicle_no_plate="ABC-123"),
+        Customer(name="Anna Lee", phone_number="876-543-2109", cnic="87654-3210987-6", address="567 Fourth St", customer_id="C002", subscription_id="S002", vehicle_no_plate="DEF-456"),
+        Customer(name="James Wilson", phone_number="765-432-1098", cnic="76543-2109876-5", address="678 Fifth St", customer_id="C003", subscription_id="S003", vehicle_no_plate="GHI-789"),
+        Customer(name="Sophia Martinez", phone_number="654-321-0987", cnic="65432-1098765-4", address="789 Sixth St", customer_id="C004", subscription_id="S004", vehicle_no_plate="JKL-012"),
+        Customer(name="Daniel Brown", phone_number="543-210-9876", cnic="54321-0987654-3", address="890 Seventh St", customer_id="C005", subscription_id="S005", vehicle_no_plate="MNO-345")
     ]
 
     
     for customer in customers:
-        customer.Vehicle.car_model = "Car Model for " + customer.Customer_Id
+        customer.vehicle.car_model = "Car Model for " + customer.customer_id
 
-    
-    register_entries = [RegisterEentries(car_entry_time="10:00 AM", car_leaving_time="11:00 AM", customer=cust) for cust in customers]
+    register_entries = [RegisterEntries(car_entry_time="10:00 AM", car_leaving_time="11:00 AM", customer=cust) for cust in customers]
+    car_wash_records = [CarWashRecord(worker=workers[i % len(workers)], vehicle=customers[i % len(customers)].vehicle) for i in range(len(customers))]
 
-   
-    car_wash_records = [CarWashRecord(worker=workers[i % len(workers)], vehicle=customers[i % len(customers)].Vehicle) for i in range(len(customers))]
-
-    
+    # Car wash tiers
     tier1_wash = Tier1(car_wash_type="Tier 1")
     tier2_wash = Tier2(car_wash_type="Tier 2")
     tier3_washes = [Tier3(car_wash_type="Tier 3", worker=workers[i % len(workers)]) for i in range(len(customers))]
 
-    
+    # Assign tasks to workers
     for worker in workers:
-        worker.assign_task(f"Washing car for customer {worker.Worker_Id}")
+        worker.assign_task(f"Washing car for customer {worker.worker_id}")
 
     print("--------Automatic Car Wash System---------")
     print("1. Workers Details")
@@ -74,7 +71,7 @@ def main():
         elif choice == '3':
 
             for customer in customers:
-                print(customer.Vehicle)
+                print(customer.vehicle)
                 
         elif choice == '4':
 
@@ -112,14 +109,14 @@ def main():
         elif choice == '11':
             
             customer_id = input("Enter customer ID to update subscription: ")
-            new_subscription_Id = input("Enter new subscription ID: ")
+            new_subscription_id = input("Enter new subscription ID: ")
 
             for customer in customers:
 
-                if customer.Customer_Id == customer_id:
+                if customer.customer_id == customer_id:
 
-                    customer.update_subscription(new_subscription_Id)
-                    print(f"Subscription for customer {customer_id} updated to {new_subscription_Id}")
+                    customer.update_subscription(new_subscription_id)
+                    print(f"Subscription for customer {customer_id} updated to {new_subscription_id}")
                     break
 
             else:

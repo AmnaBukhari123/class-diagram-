@@ -4,5 +4,5 @@ class CarWashRecord:
         self.vehicle = vehicle
 
     def __str__(self):
-        return f"Car Wash Record - Vehicle No : {self.vehicle.Vehicle_no_plate} washed by worker {self.worker.Worker_Id}"
+        return f"Car Wash Record - Vehicle No : {self.vehicle.vehicle_no_plate} washed by worker {self.worker.worker_id}"
 
